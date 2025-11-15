@@ -23,7 +23,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
-      "https://stayai-frontend.onrender.com", // frontend prod
+      "https://quickstay-3nos.onrender.com", // frontend prod
     ],
     credentials: true,
   })
