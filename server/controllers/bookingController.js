@@ -1,5 +1,6 @@
 import Booking from "../models/Booking.js";
 import Room from "../models/Room.js";
+import Hotel from "../models/Hotel.js";
 
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
   try {
@@ -82,7 +83,8 @@ export const getUserBookings = async (req, res) => {
 
 export const getHotelBookings = async (req, res) => {
   try {
-    const hotel = await Hotel.findOne({ owner: req.auth.userId });
+    const { userId } = await req.auth();
+    const hotel = await Hotel.findOne({ owner: userId });
     if (!hotel) {
       return res.json({ success: false, message: "No hotel found" });
     }

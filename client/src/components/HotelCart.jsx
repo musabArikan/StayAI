@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const HotelCart = ({ room, index }) => {
   return (
     <Link
-      to={`/rooms/${room.id}`}
+      to={`/rooms/${room._id}`}
       onClick={() => scrollTo(0, 0)}
       key={room._id}
       className="

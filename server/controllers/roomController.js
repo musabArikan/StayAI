@@ -4,7 +4,8 @@ import Room from "../models/Room.js";
 export const createRoom = async (req, res) => {
   try {
     const { roomType, pricePerNight, amenities } = req.body;
-    const hotel = await Hotel.findOne({ owner: req.auth.userId });
+    const { userId } = await req.auth();
+    const hotel = await Hotel.findOne({ owner: userId });
     if (!hotel) {
       return res.json({
         success: false,
@@ -12,7 +13,7 @@ export const createRoom = async (req, res) => {
       });
     }
     const uploadImages = req.files.map(async (file) => {
-      await connectCloudinary.uploader.upload(file.path);
+      const response = await cloudinary.uploader.upload(file.path);
       return response.secure_url;
     });
 
@@ -49,7 +50,8 @@ export const getRooms = async (req, res) => {
 
 export const getOwnerRooms = async (req, res) => {
   try {
-    const hotelData = await Hotel.findOne({ owner: req.auth.userId });
+    const { userId } = await req.auth();
+    const hotelData = await Hotel.findOne({ owner: userId });
     const rooms = await Room.find({ hotel: hotelData._id.toString() }).populate(
       "hotel"
     );
