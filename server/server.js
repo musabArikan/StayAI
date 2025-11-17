@@ -1,3 +1,15 @@
+import express from "express";
+import "dotenv/config";
+import cors from "cors";
+import connectDB from "./configs/db.js";
+import { clerkMiddleware } from "@clerk/express";
+import clerkWebHooks from "./controllers/clerkWebHooks.js";
+import userRouter from "./routes/UserRoutes.js";
+import hotelRouter from "./routes/hotelRoutes.js";
+import connectCloudinary from "./configs/cloudinary.js";
+import roomRouter from "./routes/roomRoutes.js";
+import bookingRouter from "./routes/bookingRoutes.js";
+
 const startServer = async () => {
   try {
     await connectDB();
